@@ -1,5 +1,5 @@
 const url =
-  "https://student-api-proxy.onrender.com/api/nba-api-free-data.p.rapidapi.com/nba-conference-standings?year=2023";
+  "https://student-api-proxy.onrender.com/api/nba-api-free-data.p.rapidapi.com/ENDPOINT";
 const options = {
   method: "GET",
   headers: {
