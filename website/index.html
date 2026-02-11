@@ -24,21 +24,23 @@
     </section>
 
     <section>
-      <h2>Popular Teams</h2>
-
+      <h2>Western Ranking</h2>
       <div class="card-container">
+        <!-- Search Ranking by Year -->
         <div class="card">
-          <h3>Los Angeles Lakers</h3>
-          <p>Founded: 1947</p>
-          <p>Championships: 17</p>
-          <p id="lal-rank"></p>
-        </div>
-
-        <div class="card">
-          <h3>Los Angeles Clippers</h3>
-          <p>Founded: 1970</p>
-          <p>Championships: 0</p>
-          <p id="lac-rank"></p>
+          <h3>Search Ranking by Year</h3>
+          <div>
+            <label for="year-input">Enter year:</label>
+            <input
+              type="number"
+              id="year-input"
+              placeholder="eg.2024"
+              min="2000"
+              max="2026"
+            />
+            <button id="search-btn">Search</button>
+          </div>
+          <div id="search-output"></div>
         </div>
       </div>
     </section>
@@ -73,7 +75,6 @@
       </div>
     </section>
 
-    <!-- ===== Footer ===== -->
     <footer>
       <p>© 2026 NBA Info Hub | School Project Demo</p>
     </footer>
