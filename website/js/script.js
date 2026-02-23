@@ -12,9 +12,9 @@ const options = {
 function renderTeams(teamList, output) {
   let html = "<ol>";
 
-  teamList.forEach((team) => {
-    html += `<li>${team.team.name}</li>`;
-  });
+  for (let i = 0; i < teamList.length; i++) {
+    html += `<li>${teamList[i].team.name}</li>`;
+  }
 
   html += "</ol>";
   output.innerHTML = html;
@@ -37,8 +37,12 @@ async function loadWesternRanking(year, output) {
     const west = standings.find(
       (c) => (c.conference?.name || c.name) === "Western Conference",
     );
-
     const westTeams = west.standings.entries;
+
+    westTeams.forEach((team) => {
+      console.log(team.team.name);
+    });
+
     renderTeams(westTeams, output);
   } catch (err) {
     output.innerHTML = "Failed to load.";
