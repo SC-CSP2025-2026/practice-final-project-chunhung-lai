@@ -12,15 +12,20 @@ const options = {
 function renderTeams(teamList, output) {
   let html = "<ol>";
 
-  for (let i = 0; i < teamList.length; i++) {
-    html += `<li>${teamList[i].team.name}</li>`;
-  }
+  teamList.forEach((team) => {
+    html += `<li>${team.team.name}</li>`;
+  });
 
   html += "</ol>";
   output.innerHTML = html;
 }
 
 async function loadWesternRanking(year, output) {
+  if (!year || year < 2000 || year > 2026) {
+    output.innerHTML = "Please enter a valid year between 2000 and 2026.";
+    return;
+  }
+
   const URL = `https://student-api-proxy.onrender.com/api/nba-api-free-data.p.rapidapi.com/nba-conference-standings?year=${year}`;
 
   output.innerHTML = "Loading...";
@@ -29,17 +34,9 @@ async function loadWesternRanking(year, output) {
     const data = await res.json();
 
     const standings = data.data.response.standings;
-    const west = standings.find(function (c) {
-      let conferenceName;
-
-      if (c.conference && c.conference.name) {
-        conferenceName = c.conference.name;
-      } else {
-        conferenceName = c.name;
-      }
-
-      return conferenceName === "Western Conference";
-    });
+    const west = standings.find(
+      (c) => (c.conference?.name || c.name) === "Western Conference",
+    );
 
     const westTeams = west.standings.entries;
     renderTeams(westTeams, output);
@@ -50,10 +47,5 @@ async function loadWesternRanking(year, output) {
 
 search_btn.addEventListener("click", (event) => {
   const year = year_input.value;
-  if (year && year >= 2000 && year <= 2026) {
-    loadWesternRanking(year, search_output);
-  } else {
-    search_output.innerHTML =
-      "Please enter a valid year between 2000 and 2026.";
-  }
+  loadWesternRanking(year, search_output);
 });
