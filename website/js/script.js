@@ -9,17 +9,6 @@ const options = {
   },
 };
 
-function renderTeams(teamList, output) {
-  let html = "<ol>";
-
-  for (let i = 0; i < teamList.length; i++) {
-    html += `<li>${teamList[i].team.name}</li>`;
-  }
-
-  html += "</ol>";
-  output.innerHTML = html;
-}
-
 async function loadWesternRanking(year, output) {
   if (!year || year < 2000 || year > 2026) {
     output.innerHTML = "Please enter a valid year between 2000 and 2026.";
@@ -37,13 +26,15 @@ async function loadWesternRanking(year, output) {
     const west = standings.find(
       (c) => (c.conference?.name || c.name) === "Western Conference",
     );
+
     const westTeams = west.standings.entries;
 
+    let html = "<ol>";
     westTeams.forEach((team) => {
-      console.log(team.team.name);
+      html += `<li>${team.team.name}</li>`;
     });
-
-    renderTeams(westTeams, output);
+    html += "</ol>";
+    output.innerHTML = html;
   } catch (err) {
     output.innerHTML = "Failed to load.";
   }
